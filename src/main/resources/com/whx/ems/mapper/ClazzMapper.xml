@@ -1,0 +1,32 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whx.dao.ClazzDao">
+
+    <!--用来手动指定mybatis如何封装结果
+       id:resultMap唯一标识
+       type：当前封装结果的类型
+   -->
+    <resultMap id="clazzMap" type="Clazz">
+        <!--用来封装主键-->
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="tagid" property="tagid"></result>
+        <!--封装对象-->
+        <association property="tag" javaType="Tag">
+            <id column="tid" property="id"></id>
+            <result column="tname" property="name"></result>
+            <result column="type" property="type"></result>
+            <result column="createtime" property="createtime"></result>
+        </association>
+    </resultMap>
+
+    <select id="findAll"  resultMap="clazzMap">
+        select
+          c.id,c.name,c.tagid,t.id tid,t.name tname,t.type,t.createtime
+        from t_clazz c left join t_tag t on c.tagid=t.id;
+    </select>
+
+    <!--save方法Basedao父接口已存在，所以在ClazzDao中不需要定义该接口-->
+    <insert id="save" parameterType="Clazz" useGeneratedKeys="true" keyProperty="id">
+        insert into t_clazz values(#{id},#{name},#{tagid})
+    </insert>
+</mapper>

@@ -1,0 +1,24 @@
+spring:
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+  application:
+    name: stu
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/shixun?useSSL=false&serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123456
+
+server:
+  port: 8080
+  servlet:
+    context-path: /stu
+    jsp:
+      init-parameters:
+        development: true
+mybatis:
+  mapper-locations: classpath:com/whx/ems/mapper/*.xml
+  type-aliases-package: com.whx.entity
+
